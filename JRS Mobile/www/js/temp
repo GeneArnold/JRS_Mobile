@@ -1,0 +1,109 @@
+$(document).bind("mobileinit", function( event ) {
+    //create global variable storage
+    $.mobile.JRS = {};    
+});
+
+// Store object
+var reportInfo = {
+    label : '',
+    uri : ''
+}
+
+function storeData(t){
+    reportInfo.label = t.attributes.reportLabel.value;
+    reportInfo.uri = t.attributes.reportURI.value;
+}
+
+function runReport(){
+    
+}
+
+
+
+$(document).on("pagehide","#pageReportViewer", function(){
+    $("#reportContainer").html("");
+    $("#reportTitle").html("");
+})
+
+
+
+function validateLogIn() {
+
+
+
+        visualize(
+            function (v) {
+                $.mobile.JRS.jrsClient = v;
+
+                $("#logout").click(function(){
+                    v.logout().done(function(){
+                        alert("Log Out");
+                        $.mobile.JRS.jrsClient = null;
+                    });
+                });
+
+                $("#dialogHeader").html("ALERT");
+                $("#dialogMessage").html("Log In Successful!");
+                $("#dialogFooter").html("JRS Mobile Example");
+
+
+                $(document).on("pageshow","#pageReportList", function(event){
+                    var search = v.resourcesSearch({
+                        folderUri: "/public/Samples/Mobile_Metrics",
+                        recursive: false,
+                        types: ["reportUnit"],
+                        success: function(repo) {
+                            $.mobile.loading('show');
+                            var output = '';
+                            $.each(repo, function( index, value ) {
+                                output += "<li value='" + value.uri + "' >";
+                                output += "<a reportLabel='" + value.label + "' reportURI='"+ value.uri + "' href='#pageReportViewer' onclick='storeData(this)'><h3>" + value.label + "</h3></a>";
+                                output += "</li>";
+                            });
+                            $("#postReportList").html(output).listview('refresh');
+                            $.mobile.loading('hide');
+                        }
+                    });
+                });
+
+                $.mobile.changePage("#pageReportList");
+
+                $(document).on("pageshow","#pageReportViewer", function(event){
+                    //alert("here");
+                    $.mobile.loading('show');
+                    var report = $.mobile.JRS.jrsClient.report({
+                    resource: reportInfo.uri,
+                    container: "#reportContainer",
+                    success: function(){
+                        $("#reportTitle").html(reportInfo.label);
+                        $.mobile.loading('hide');
+                    }
+                    });
+                });
+
+            }, function () {
+                $("#dialogHeader").html("ALERT");
+                $("#dialogMessage").html("You could not be logged in!");
+                $("#dialogFooter").html("JRS Mobile Example");
+                $.mobile.changePage("#pageDialog",{role: "dialog"});
+            });
+    
+    // else {
+    //     $("#dialogHeader").html("ALERT");
+    //     $("#dialogMessage").html("You could not be logged in!");
+    //     $("#dialogFooter").html("JRS Mobile Example");
+    //     $.mobile.changePage("#pageDialog",{role: "dialog"});
+    //     //alert ("Login was unsuccessful, please check your username and password");
+    //     return false;
+    // }
+
+
+
+}
+
+function getAuthData(){
+    return {name: $("#username").val(),
+            password: $("#password").val()
+           }
+};
+

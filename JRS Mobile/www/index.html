@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>title</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<link rel="stylesheet" href="css/JRS_Mobile.min.css" />
+	<link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
+	<link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.min.css" /> 
+  	<link rel="stylesheet" href="css/app_style.css" /> 
+
+  	<script src="js/visualize.js"></script>
+
+	<script src="js/jquery.min.js"></script>
+	
+	<script src="js/jquery.mobile.min.js"></script>
+
+	<script src="js/jquery.validate.min.js"></script>
+	
+</head>
+<body>
+	<div id="pageLogIn" data-role="page" data-position="fixed">
+		<form id="loginForm">
+
+			<div data-role="header">
+				<h1>JRS Mobile Demo</h1>
+			</div><!-- Header -->
+
+			<div data-role="main" class="ui-content">
+				<label for="jrsServer">JRS Server:</label>
+				<input type="text" name="jrsServer" id="jrsServer" placeholder="http://servername/jasperserver-pro"  value="">
+
+				<label for="reportsPath">Location of Reports:</label>
+				<input type="text" name="reportsPath" id="reportsPath" placeholder="/public/Samples/Reports" value="">
+
+				<label for="userName">User name:</label>
+				<input type="text" name="userName" id="userName">
+
+				<label for="password">Password:</label>
+				<input type="password" name="password" id="password" >
+
+				<label><input type="checkbox" id="rememberSettings" name="rememberSettings" /> Remember Settings </label>
+
+				<input data-role="submit" type="submit" value="Login" id="submit" />
+			</div><!-- Main -->
+
+		</form>
+
+		<div data-role="footer" data-position="fixed" style="text-align: center;">
+			<h1>Visualize.js</h1>
+		</div><!-- Footer -->
+
+		<div data-role="popup" 
+			id="pageLogInPopup" 
+			data-overlay-theme="a" 
+			data-theme="c" 
+			style="max-width:400px;" 
+			class="ui-corner-all ui-popup ui-body-c ui-overlay-shadow" 
+			aria-disabled="false" 
+			data-disabled="false" 
+			data-shadow="true" 
+			data-corners="true" 
+			data-transition="none" 
+			data-position-to="origin">
+
+			<div data-role="header" data-theme="a" class="ui-corner-top ui-header ui-bar-a" role="banner">
+				<h1 class="ui-title" role="heading" aria-level="1">Alert</h1>
+			</div>
+
+			<div data-role="content"
+				data-theme="d" 
+				class="ui-corner-bottom 
+				ui-content 
+				ui-body-d" 
+				role="main">
+
+				<h3 class="ui-title">Issue loging in...</h3>
+
+				<p id="pageLogInPopupContent"></p>
+
+				<a href="#" 
+					data-role="button" 
+					data-inline="true" 
+					data-rel="back" 
+					data-theme="c" 
+					data-corners="true" 
+					data-shadow="true" 
+					data-iconshadow="true" 
+					data-wrapperels="span" 
+					class="ui-btn ui-btn-up-c ui-shadow ui-btn-corner-all ui-btn-inline">
+
+					<span class="ui-btn-inner ui-btn-corner-all">
+					<span class="ui-btn-text">Cancel</span></span>
+				</a>
+			</div>
+		</div><!-- Popup -->
+
+	</div> <!-- LogIn Page -->
+
+	
+
+	<div id="pageReportList" data-role="page" data-position="fixed">
+
+		<div data-role="header">
+
+			<a id="logout" href="" data-icon="power">Logout</a>
+
+			<h1>JRS Mobile Demo</h1>
+
+		</div><!-- Header -->
+
+		<div role="main" class="ui-content">
+
+			<ul data-role="listview"
+				id="report-list" 
+				data-theme="a"
+				data-inset="true"
+				data-filter="true">
+                
+            </ul>
+
+ 		</div><!-- Main -->
+
+		<div data-role="footer" data-position="fixed" style="text-align: center;">
+
+			<h1>Visualize.js</h1>
+
+		</div><!-- Footer -->
+
+	</div> <!-- Report List Page -->
+
+
+	<div id="pageDisplayReport" data-role="dialog" data-position="fixed">
+
+		<div data-role="header">
+
+			<h1 id="pageDisplayReportTitle"></h1>
+
+		</div><!-- Header -->
+
+		<div role="main" class="ui-content ">
+
+			<div id="reportContainer" class=""></div>
+
+ 		</div><!-- Main -->
+
+		<div data-role="footer" data-position="fixed" style="text-align: center;">
+
+			<h1>Visualize.js</h1>
+
+		</div><!-- Footer -->
+
+	</div> <!-- Report Display Page -->
+
+
+
+
+
+	<script src="js/app_script.js"></script>
+
+</body>
+</html>
